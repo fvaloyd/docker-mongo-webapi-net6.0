@@ -2,9 +2,6 @@ version: '3.8'
 
 services:
   mongo:
-    image: mongo
-    container_name: mongo
-    restart: always
     ports:
       - 27017:27017
     volumes:
@@ -12,12 +9,13 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=mongoadmin
       - MONGO_INITDB_ROOT_PASSWORD=pass#word1
+    container_name: mongo
+    image: mongo
 
   webapi:
-    image: mongowebapi:v2
-    restart: always
     ports: 
       - 8080:80
     environment: 
       - MongoDbSettings:Host=mongo
       - MongoDbSettings:Password=pass#word1
+    image: mongowebapi:v3
