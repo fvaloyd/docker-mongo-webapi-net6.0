@@ -4,11 +4,9 @@ services:
   mongo:
     ports:
       - 27017:27017
-    volumes:
-      - C:\Users\franc\Desktop\mongo-dockerDb:/data/db
     environment:
       - MONGO_INITDB_ROOT_USERNAME=mongoadmin
-      - MONGO_INITDB_ROOT_PASSWORD=pass#word1
+      - MONGO_INITDB_ROOT_PASSWORD=password1
     container_name: mongo
     image: mongo
 
@@ -16,6 +14,7 @@ services:
     ports: 
       - 8080:80
     environment: 
-      - MongoDbSettings:Host=mongo
-      - MongoDbSettings:Password=pass#word1
-    image: mongowebapi:v3
+      - MongoDbSettings:ConnectionString=mongodb://mongoadmin:password1@mongo:27017
+    depends_on:
+      - mongo
+    image: webapi-mongo:v2
